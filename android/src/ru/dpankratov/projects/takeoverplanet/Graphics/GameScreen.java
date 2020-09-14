@@ -12,7 +12,6 @@ public class GameScreen implements Screen {
     public static GalaxyModel model;
     public static GalaxyRenderer view;
     public static GalaxyController controller;
-    public static GalaxyLogicController logic;
     private LocalClient input;
     private float runTime; //время с момента запуска игры
     public static boolean isPaused;
@@ -24,7 +23,6 @@ public class GameScreen implements Screen {
         model = GalaxyModelGenerator.SingleGame((byte)2);
         view = new GalaxyRenderer(model);
         controller = new GalaxyController(model);
-        logic = new GalaxyLogicController(model, controller);
         input = new LocalClient(model);
 
     }
@@ -39,7 +37,6 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1); //указываем цвет
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //заполняем экран цветом
         runTime += delta;
-        logic.update(delta);
         model.update(delta);
         controller.update(delta);
         view.render();

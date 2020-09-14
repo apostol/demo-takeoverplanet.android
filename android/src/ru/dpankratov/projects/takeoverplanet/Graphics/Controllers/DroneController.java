@@ -13,12 +13,9 @@ import ru.dpankratov.projects.takeoverplanet.Graphics.IController;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.DroneModel;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.PlanetModel;
 
-import static ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules.getMe;
-
 public class DroneController implements IController {
 
     private final List<DroneModel> droneModels;
-    //private Object lock;
 
     public DroneController(List<DroneModel> droneModels){
         this.droneModels = droneModels;
@@ -51,7 +48,7 @@ public class DroneController implements IController {
             for(PlanetModel planet: planets){
                 Circle pC = new Circle(planet.getX(), planet.getY(), PlanetModel.PLANET_RADIUS); //TODO: Использование безбожного хака!
                 if(Intersector.overlaps(droneC1, pC)){
-                    if (GalaxyLogicRules.itIsMyPlanet(planet)){
+                    if (drone1.getFrom().getOwnerId().equalsIgnoreCase(planet.ownerId)){ //Попали на свою планету
                         //TODO: Вынсти в логику галактики
                         planet.setDrones(planet.getDroids() + drone1.getSize());
                         drone1.setSize(0);
@@ -61,8 +58,8 @@ public class DroneController implements IController {
                         planet.setDrones(planet.getDroids() - drone1.getSize());
                         drone1.setSize(drone1.getSize() - tmp);
                         if (drone1.getSize() > 0) {
-                            planet.setOwner(getMe().getDisplayName());
-                            planet.setOwnerId(getMe().getUid());
+                            planet.setOwner(drone1.getFrom().getOwner());
+                            planet.setOwnerId(drone1.getFrom().getOwnerId());
                             planet.setDrones(drone1.getSize());
                         }
                     }

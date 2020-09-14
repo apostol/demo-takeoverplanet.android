@@ -41,7 +41,7 @@ public class GalaxyLogicRules {
         return planet.getOwnerId().equalsIgnoreCase(getMe().getUid());
     }
 
-    public static boolean itIsMyDrones(DroneModel drone2){
-        return itIsMyPlanet(drone2.getFrom());
+    public static boolean itIsMyDrones(DroneModel drone){
+        return drone.getFrom().getOwnerId().equalsIgnoreCase(getMe().getUid());
     }
 }

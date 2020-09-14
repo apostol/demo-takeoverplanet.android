@@ -7,7 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector3;
 
-import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicController;
+import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules;
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyModel;
 import ru.dpankratov.projects.takeoverplanet.Graphics.GameScreen;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.PlanetModel;
@@ -47,7 +47,7 @@ public class LocalClient extends GestureDetector.GestureAdapter implements Input
         //переводим экранные координаты в координаты относительно камеры и мира
         pressDown = camera.unproject(new Vector3(screenX, screenY, 0));
         Gdx.app.log("Touch Down coordinates: ", pressDown.toString());
-        fromPlanet = GameScreen.logic.findNearestPlanetByPoint(pressDown);
+        fromPlanet = findNearestPlanetByPoint(pressDown);
         pressDown = fromPlanet != null ? new Vector3(fromPlanet.getPosition()) : pressDown;
         Gdx.app.log("Touch Down Planet: ", String.valueOf(fromPlanet.id));
         return true;
@@ -59,8 +59,9 @@ public class LocalClient extends GestureDetector.GestureAdapter implements Input
         pressUp = camera.unproject(new Vector3(screenX, screenY, 0));
         Gdx.app.log("From planet position:", pressDown.toString());
         Gdx.app.log("To position:", pressUp.toString());
-        toPlanet = GameScreen.logic.findNearestPlanetByPoint(pressUp);
-        if (fromPlanet != null && toPlanet != null) {
+        toPlanet = findNearestPlanetByPoint(pressUp);
+        if (fromPlanet != null && toPlanet != null
+                && fromPlanet.getOwnerId().equalsIgnoreCase(GalaxyLogicRules.getMe().getUid())) {
             GameScreen.controller.getDroneController().send(fromPlanet, toPlanet);
         }
         return true;
@@ -122,5 +123,23 @@ public class LocalClient extends GestureDetector.GestureAdapter implements Input
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Находим ближайшую планету от точки нажатия
+     * @param pressDown - точка нажатия
+     * @return
+     */
+    public PlanetModel findNearestPlanetByPoint(Vector3 pressDown) {
+        float minDst = Float.MAX_VALUE;
+        PlanetModel result = null;
+        for(PlanetModel planet:GameScreen.model.getPlanetModels().values()){
+            float dst = planet.getPosition().dst(pressDown);
+            if (dst < minDst) {
+                minDst = dst;
+                result = planet;
+            }
+        }
+        return result;
     }
 }
