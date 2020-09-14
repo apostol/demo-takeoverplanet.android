@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="ru.dpankratov.projects.takeoverplanet">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:appCategory="game"
+        android:icon="@drawable/ic_launcher"
+        android:isGame="true"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
+        tools:targetApi="o">
+        <activity
+            android:name=".AndroidLauncher"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity" />
+        <activity
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
+            android:name=".GameLauncher"
+            android:theme="@style/GdxTheme" />
+        <activity
+            android:name=".SignInActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Auth.GoogleAuthActivity"
+            android:label="@string/label_google_sign_in" />
+        <activity
+            android:name=".Auth.PhoneAuthActivity"
+            android:label="@string/label_phone_auth"
+            android:windowSoftInputMode="adjustPan" />
+
+    </application>
+
+</manifest>

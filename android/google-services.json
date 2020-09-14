@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "754377444418",
+    "firebase_url": "https://take-over-planet.firebaseio.com",
+    "project_id": "take-over-planet",
+    "storage_bucket": "take-over-planet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754377444418:android:dfad10b84063bd9ee471db",
+        "android_client_info": {
+          "package_name": "ru.dpankratov.projects.takeoverplanet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754377444418-0t9ts927ho7oaevrl0r3mu1v5tkmn0qd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLrpwvKlWtnrPmaOW-mc3_vJsFj5XeTY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754377444418-0t9ts927ho7oaevrl0r3mu1v5tkmn0qd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
