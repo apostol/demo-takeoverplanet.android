@@ -5,11 +5,9 @@ import com.badlogic.gdx.math.Vector3;
 
 import java.util.Objects;
 
-import ru.dpankratov.projects.takeoverplanet.Graphics.IModel;
-
 public class PlanetModel implements IModel {
     public int id;
-    public float droids;
+    public int droids;
     public String owner;
     public String ownerId;
     public PlanetType type;
@@ -24,7 +22,7 @@ public class PlanetModel implements IModel {
         return Objects.hash(id);
     }
 
-    public float getDroids() {
+    public int getDroids() {
         return droids;
     }
 
@@ -84,7 +82,7 @@ public class PlanetModel implements IModel {
     public void update(float deltaTime) {
     }
 
-    public void setDrones(float count) {
+    public void setDrones(int count) {
         this.droids = count;
         Gdx.app.log("Planet ",  id + " drones: " + count);
     }

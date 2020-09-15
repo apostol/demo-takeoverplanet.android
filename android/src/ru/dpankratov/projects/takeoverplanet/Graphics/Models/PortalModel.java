@@ -1,7 +1,5 @@
 package ru.dpankratov.projects.takeoverplanet.Graphics.Models;
 
-import ru.dpankratov.projects.takeoverplanet.Graphics.IModel;
-
 public class PortalModel implements IModel {
 
     public long source;

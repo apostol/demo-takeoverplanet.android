@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules;
-import ru.dpankratov.projects.takeoverplanet.Graphics.GameScreen;
-import ru.dpankratov.projects.takeoverplanet.Graphics.IController;
+import ru.dpankratov.projects.takeoverplanet.Graphics.Screens.GameScreen;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.DroneModel;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.PlanetModel;
 
@@ -36,7 +35,7 @@ public class DroneController implements IController {
                 if(Intersector.overlaps(droneC1, droneC2)){
                     if (!GalaxyLogicRules.itIsMyDrones(drone2)){
                         //TODO: Вынсти в логику галактики
-                        float tmp = drone1.getSize();
+                        int tmp = drone1.getSize();
                         drone1.setSize(drone1.getSize() - drone2.getSize());
                         drone2.setSize(drone2.getSize() - tmp);
                     }
@@ -54,7 +53,7 @@ public class DroneController implements IController {
                         drone1.setSize(0);
                     }else {
                         //TODO: Вынсти в логику галактики
-                        float tmp = planet.getDroids();
+                        int tmp = planet.getDroids();
                         planet.setDrones(planet.getDroids() - drone1.getSize());
                         drone1.setSize(drone1.getSize() - tmp);
                         if (drone1.getSize() > 0) {

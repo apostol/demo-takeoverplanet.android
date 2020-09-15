@@ -4,16 +4,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.List;
 
-import ru.dpankratov.projects.takeoverplanet.Graphics.IView;
+import ru.dpankratov.projects.takeoverplanet.BaseRenderer;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.PortalModel;
 
-public class PortalRenderer implements IView {
+public class PortalRenderer extends BaseRenderer implements IView {
 
-    private final ShapeRenderer shape;
     private List<PortalModel> portalModels;
 
     public PortalRenderer(List<PortalModel> planetModels) {
-        this.shape = new ShapeRenderer();
         this.portalModels = planetModels;
     }
 
@@ -29,7 +27,7 @@ public class PortalRenderer implements IView {
 
     @Override
     public void render() {
-
+        super.render();
     }
 
     @Override

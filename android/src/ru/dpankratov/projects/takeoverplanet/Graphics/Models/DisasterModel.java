@@ -2,8 +2,6 @@ package ru.dpankratov.projects.takeoverplanet.Graphics.Models;
 
 import java.util.Objects;
 
-import ru.dpankratov.projects.takeoverplanet.Graphics.IModel;
-
 public class DisasterModel implements IModel {
 
     public DisasterType type;

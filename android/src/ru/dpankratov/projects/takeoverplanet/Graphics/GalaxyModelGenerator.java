@@ -12,6 +12,7 @@ import ru.dpankratov.projects.takeoverplanet.Graphics.Models.PlanetModel;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.PlanetType;
 
 import static ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules.getMe;
+import static ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules.getMyPlanetName;
 
 public class GalaxyModelGenerator {
     private static final Random RANDOM = new Random();
@@ -24,7 +25,7 @@ public class GalaxyModelGenerator {
         byte planetsCount = 6; //TODO: Вынести в настройки
         int _id = 1;
         LocalClient _local = new LocalClient(galaxy);
-        galaxy.getPlanetModels().put(_id, new PlanetModel(_id, RandomizeWidth(), RandomizeHeight(), 0, getMe().getDisplayName(), getMe().getUid(), PlanetType.TYPE_A));
+        galaxy.getPlanetModels().put(_id, new PlanetModel(_id, RandomizeWidth(), RandomizeHeight(), 0, getMyPlanetName(), getMe().getUid(), PlanetType.TYPE_A));
         new Thread(_local).start();
         _id++;
         for (int i = 0; i<planetsCount+1; i++){

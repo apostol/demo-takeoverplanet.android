@@ -1,9 +1,13 @@
 package ru.dpankratov.projects.takeoverplanet.Graphics;
 
+import com.badlogic.gdx.Gdx;
+
 import ru.dpankratov.projects.takeoverplanet.Graphics.Controllers.DisasterController;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Controllers.DroneController;
+import ru.dpankratov.projects.takeoverplanet.Graphics.Controllers.IController;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Controllers.PlanetController;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Controllers.PortalController;
+import ru.dpankratov.projects.takeoverplanet.R;
 
 public class GalaxyController implements IController {
 

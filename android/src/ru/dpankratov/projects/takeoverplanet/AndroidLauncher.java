@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.ComponentActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class AndroidLauncher extends ComponentActivity {
+public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks {
 	static public FirebaseAuth AuthService ;
 	private boolean quit = false;
 	private boolean gameIsStarted = false;
@@ -29,6 +33,11 @@ public class AndroidLauncher extends ComponentActivity {
 		_checkAuth.start();
 	}
 
+	@Override
+	public void exit() {
+
+	}
+
 	class CheckAuth extends Thread {
 		@Override
 		public void run() {
@@ -39,7 +48,11 @@ public class AndroidLauncher extends ComponentActivity {
 						if (_user != null && !_user.isAnonymous()) {
 							gameIsStarted = true;
 							authIsStarted = false;
-							startActivity(new Intent(getApplicationContext(), GameLauncher.class));
+//							startActivityForResult(new Intent(getApplicationContext(),  GameLauncher.class), RESULT_CONTEXT_CODE_GAME);
+							GameLauncher fragment = new GameLauncher();
+							FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+							trans.replace(android.R.id.content, fragment);
+							trans.commit();
 						} else if (!authIsStarted){
 							authIsStarted = true;
 							startActivity(new Intent(getApplicationContext(), SignInActivity.class));

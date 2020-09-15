@@ -1,11 +1,14 @@
-package ru.dpankratov.projects.takeoverplanet.Graphics;
+package ru.dpankratov.projects.takeoverplanet.Graphics.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 
 import ru.dpankratov.projects.takeoverplanet.Client.LocalClient;
-
+import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyController;
+import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules;
+import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyModel;
+import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyModelGenerator;
+import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyRenderer;
 
 public class GameScreen implements Screen {
 
@@ -24,7 +27,6 @@ public class GameScreen implements Screen {
         view = new GalaxyRenderer(model);
         controller = new GalaxyController(model);
         input = new LocalClient(model);
-
     }
 
     @Override
@@ -34,12 +36,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1); //указываем цвет
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //заполняем экран цветом
-        runTime += delta;
-        model.update(delta);
-        controller.update(delta);
-        view.render();
+        if (!GalaxyLogicRules.isGameOver()) {
+            runTime += delta;
+            model.update(delta);
+            controller.update(delta);
+            view.render();
+        }
     }
 
     @Override
@@ -60,14 +62,17 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void hide() {
-        Gdx.input.setInputProcessor(null);
+    public void hide()
+    {
     }
 
     @Override
     public void dispose() {
         isStarted = false;
-        Gdx.input.setInputProcessor(null);
+        model = null;
+        view = null;
+        controller = null;
+        input = null;
     }
 }
 

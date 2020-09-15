@@ -3,7 +3,6 @@ package ru.dpankratov.projects.takeoverplanet.Graphics.Controllers;
 import java.util.Map;
 
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules;
-import ru.dpankratov.projects.takeoverplanet.Graphics.IController;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.PlanetModel;
 
 import static ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules.DRONES_BORN_PERIOD;

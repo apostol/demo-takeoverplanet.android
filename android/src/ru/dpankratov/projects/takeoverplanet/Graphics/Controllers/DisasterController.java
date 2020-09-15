@@ -2,7 +2,6 @@ package ru.dpankratov.projects.takeoverplanet.Graphics.Controllers;
 
 import java.util.List;
 
-import ru.dpankratov.projects.takeoverplanet.Graphics.IController;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.DisasterModel;
 
 public class DisasterController implements IController {

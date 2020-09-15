@@ -1,21 +1,32 @@
 package ru.dpankratov.projects.takeoverplanet;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import ru.dpankratov.projects.takeoverplanet.TakeOverPlanet;
+import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-public class GameLauncher extends AndroidApplication {
+public class GameLauncher extends AndroidFragmentApplication {
+
+    public static TakeOverPlanet theGame;
+
     @Override
-    protected void onCreate (Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         config.useGyroscope = false;
         config.useAccelerometer = false;
         config.useCompass = false;
         config.useWakelock = true;
         config.useRotationVectorSensor = false;
-        initialize(new TakeOverPlanet(), config);
+        theGame = new TakeOverPlanet();
+        return initializeForView(theGame, config);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 }

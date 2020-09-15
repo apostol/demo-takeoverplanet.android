@@ -64,7 +64,6 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
         mBinding.signOutButton.setOnClickListener(this);
 
         // Initialize phone auth callbacks
-        // [START phone_auth_callbacks]
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
@@ -76,14 +75,9 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
                 Log.d(TAG, "onVerificationCompleted:" + credential);
-                // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
-                // [END_EXCLUDE]
-
-                // [START_EXCLUDE silent]
                 // Update the UI and attempt sign in with the phone credential
                 updateUI(STATE_VERIFY_SUCCESS, credential);
-                // [END_EXCLUDE]
                 signInWithPhoneAuthCredential(credential);
             }
 
@@ -92,27 +86,19 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e);
-                // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
-                // [END_EXCLUDE]
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
-                    // [START_EXCLUDE]
                     mBinding.fieldPhoneNumber.setError("Invalid phone number.");
-                    // [END_EXCLUDE]
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
-                    // [START_EXCLUDE]
                     Snackbar.make(findViewById(android.R.id.content), "Quota exceeded.",
                             Snackbar.LENGTH_SHORT).show();
-                    // [END_EXCLUDE]
                 }
 
                 // Show a message and update the UI
-                // [START_EXCLUDE]
                 updateUI(STATE_VERIFY_FAILED);
-                // [END_EXCLUDE]
             }
 
             @Override
@@ -127,29 +113,22 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
                 mVerificationId = verificationId;
                 mResendToken = token;
 
-                // [START_EXCLUDE]
                 // Update UI
                 updateUI(STATE_CODE_SENT);
-                // [END_EXCLUDE]
             }
         };
-        // [END phone_auth_callbacks]
     }
 
-    // [START on_start_check_user]
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         updateUI(AndroidLauncher.getUser());
 
-        // [START_EXCLUDE]
         if (mVerificationInProgress && validatePhoneNumber()) {
             startPhoneNumberVerification(mBinding.fieldPhoneNumber.getText().toString());
         }
-        // [END_EXCLUDE]
     }
-    // [END on_start_check_user]
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -165,7 +144,6 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
 
 
     private void startPhoneNumberVerification(String phoneNumber) {
-        // [START start_phone_auth]
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
@@ -178,13 +156,10 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
-        // [START verify_with_code]
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        // [END verify_with_code]
         signInWithPhoneAuthCredential(credential);
     }
 
-    // [START resend_verification]
     private void resendVerificationCode(String phoneNumber,
                                         PhoneAuthProvider.ForceResendingToken token) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -195,9 +170,7 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
                 mCallbacks,         // OnVerificationStateChangedCallbacks
                 token);             // ForceResendingToken from callbacks
     }
-    // [END resend_verification]
 
-    // [START sign_in_with_phone]
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         AndroidLauncher.AuthService.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -206,22 +179,13 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = task.getResult().getUser();
-                            // [START_EXCLUDE]
                             updateUI(STATE_SIGNIN_SUCCESS, user);
-                            // [END_EXCLUDE]
                         } else {
-                            // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                // [START_EXCLUDE silent]
                                 mBinding.fieldVerificationCode.setError("Invalid code.");
-                                // [END_EXCLUDE]
                             }
-                            // [START_EXCLUDE silent]
-                            // Update UI
                             updateUI(STATE_SIGNIN_FAILED);
-                            // [END_EXCLUDE]
                         }
                     }
                 });
@@ -289,11 +253,9 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
             case STATE_SIGNIN_FAILED:
-                // No-op, handled by sign-in check
                 mBinding.detail.setText(R.string.status_sign_in_failed);
                 break;
             case STATE_SIGNIN_SUCCESS:
-                // Np-op, handled by sign-in check
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
                 finish();
@@ -348,7 +310,6 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
                 if (!validatePhoneNumber()) {
                     return;
                 }
-
                 startPhoneNumberVerification(mBinding.fieldPhoneNumber.getText().toString());
                 break;
             case R.id.buttonVerifyPhone:
@@ -357,7 +318,6 @@ public class PhoneAuthActivity extends BaseActivity implements View.OnClickListe
                     mBinding.fieldVerificationCode.setError("Cannot be empty.");
                     return;
                 }
-
                 verifyPhoneNumberWithCode(mVerificationId, code);
                 break;
             case R.id.buttonResend:

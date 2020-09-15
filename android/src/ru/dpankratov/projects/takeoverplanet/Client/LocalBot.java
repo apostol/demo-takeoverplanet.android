@@ -2,20 +2,19 @@ package ru.dpankratov.projects.takeoverplanet.Client;
 
 import java.util.List;
 
+import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules;
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyModel;
-import ru.dpankratov.projects.takeoverplanet.Graphics.GameScreen;
+import ru.dpankratov.projects.takeoverplanet.Graphics.Screens.GameScreen;
 
 public class LocalBot extends AbstractClient {
     private String name;
     private String id;
-    private boolean isStarted = false;
     private final LocalBotLogic localBotLogic = new LocalBotLogic();
 
     public LocalBot(GalaxyModel galaxy, String name, String id){
         super(galaxy);
         this.name = name;
         this.id = id;
-        this.isStarted = true;
     }
 
     public String getDisplayName() {
@@ -28,7 +27,7 @@ public class LocalBot extends AbstractClient {
 
     @Override
     public void run() {
-        while (GameScreen.isStarted && isStarted) {
+        while (!GalaxyLogicRules.isGameOver() && isStarted) {
             try {
                 Thread.sleep(1000); //TODO: Вынести в настройки
                 GalaxyModel _g = getGalaxy();

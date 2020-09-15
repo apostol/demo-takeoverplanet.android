@@ -2,15 +2,18 @@ package ru.dpankratov.projects.takeoverplanet.Client;
 
 import androidx.core.util.Consumer;
 
+import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules;
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyModel;
-import ru.dpankratov.projects.takeoverplanet.Graphics.GameScreen;
+import ru.dpankratov.projects.takeoverplanet.Graphics.Screens.GameScreen;
 
 public abstract class AbstractClient implements IClient {
     private Consumer<GalaxyModel> handler;
     private final GalaxyModel galaxy;
+    protected boolean isStarted = false;
 
     protected AbstractClient(GalaxyModel galaxy) {
         this.galaxy = galaxy;
+        isStarted = true;
     }
 
     public GalaxyModel getGalaxy() {
@@ -29,7 +32,7 @@ public abstract class AbstractClient implements IClient {
 
     @Override
     public void run() {
-        while (GameScreen.isStarted) {
+        while (!GalaxyLogicRules.isGameOver() && isStarted) {
             try {
                 Thread.sleep(500);
                 //handler.accept(galaxy); //TODO: Перспектива

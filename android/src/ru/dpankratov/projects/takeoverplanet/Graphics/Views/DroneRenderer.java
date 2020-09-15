@@ -8,18 +8,17 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.List;
 
+import ru.dpankratov.projects.takeoverplanet.BaseRenderer;
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyRenderer;
-import ru.dpankratov.projects.takeoverplanet.Graphics.IView;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.DroneModel;
 
-public class DroneRenderer implements IView {
+public class DroneRenderer extends BaseRenderer implements IView {
 
     private final ShapeRenderer shape;
 
     private List<DroneModel> droneModels;
     BitmapFont font;
     GlyphLayout glyphLayout;
-    SpriteBatch spriteBatch;
 
 
     public DroneRenderer(List<DroneModel> droneModels) {
@@ -27,7 +26,6 @@ public class DroneRenderer implements IView {
         this.droneModels = droneModels;
         this.font = new BitmapFont();
         this.glyphLayout = new GlyphLayout();
-        this.spriteBatch = new SpriteBatch();
     }
 
     @Override
@@ -42,15 +40,14 @@ public class DroneRenderer implements IView {
 
     @Override
     public void render() {
-        shape.setProjectionMatrix(GalaxyRenderer.camera.combined);
-        spriteBatch.setProjectionMatrix(GalaxyRenderer.camera.combined);
+        super.render();
         for (DroneModel droneModel : droneModels) {
-            shape.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             float size = droneModel.getSize();
             if(size>0) {
-                shape.circle(droneModel.getX(), droneModel.getY(), size>50?50:size);
+                shapeRenderer.circle(droneModel.getX(), droneModel.getY(), size>50?50:size);
             }
-            shape.end();
+            shapeRenderer.end();
 
             spriteBatch.begin();
             //установим цвет шрифта - cyan
@@ -59,7 +56,6 @@ public class DroneRenderer implements IView {
             glyphLayout.setText(font, String.valueOf(droneModel.getSize()));
             font.draw(spriteBatch, glyphLayout, droneModel.getX()-glyphLayout.width/2, droneModel.getY()+glyphLayout.height/2);
             spriteBatch.end();
-
         }
     }
 
@@ -75,8 +71,6 @@ public class DroneRenderer implements IView {
 
     @Override
     public void dispose() {
-        shape.dispose();
-        spriteBatch.dispose();
         font.dispose();
     }
 }

@@ -1,7 +1,6 @@
 package ru.dpankratov.projects.takeoverplanet.Graphics.Models;
 
 import com.badlogic.gdx.math.Vector3;
-import ru.dpankratov.projects.takeoverplanet.Graphics.IModel;
 
 public class DroneModel implements IModel {
     private PlanetModel from;
@@ -9,9 +8,9 @@ public class DroneModel implements IModel {
     private Vector3 position;
     private Vector3 velocity;
     private Vector3 acceleration;
-    private float size;
+    private int size;
 
-    public DroneModel(PlanetModel from, PlanetModel to, Vector3 position, Vector3 velocity, Vector3 acceleration, float size) {
+    public DroneModel(PlanetModel from, PlanetModel to, Vector3 position, Vector3 velocity, Vector3 acceleration, int size) {
         this.position = position;
         this.velocity = velocity;
         this.acceleration = acceleration;
@@ -34,7 +33,7 @@ public class DroneModel implements IModel {
         return position.y;
     }
 
-    public float getSize() { return size; }
+    public int getSize() { return size; }
 
     public Vector3 getVelocity() {
         return velocity;
@@ -52,7 +51,7 @@ public class DroneModel implements IModel {
         return to;
     }
 
-    public void setSize(float v) {
+    public void setSize(int v) {
         size = v;
     }
 }

@@ -5,17 +5,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.Map;
 
-import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyRenderer;
+import ru.dpankratov.projects.takeoverplanet.BaseRenderer;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Helpers.AssetLoader;
-import ru.dpankratov.projects.takeoverplanet.Graphics.IView;
+import ru.dpankratov.projects.takeoverplanet.Graphics.Helpers.Font;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.PlanetModel;
 
-public class PlanetRenderer implements IView {
+public class PlanetRenderer extends BaseRenderer implements IView {
 
     private Map<Integer, PlanetModel> planetModels;
 
@@ -28,14 +27,11 @@ public class PlanetRenderer implements IView {
     BitmapFont font;
     GlyphLayout glyphLayout;
     float stateTime;
-    SpriteBatch spriteBatch;
-
     int tileWidth, tileHeight;
 
     public PlanetRenderer(Map<Integer, PlanetModel> planetModels) {
         this.planetModels = planetModels;
-        this.spriteBatch = new SpriteBatch();
-        this.font = new BitmapFont();
+        this.font = new Font(20).get();
         this.glyphLayout = new GlyphLayout();
         create();
     }
@@ -66,7 +62,6 @@ public class PlanetRenderer implements IView {
 
     @Override
     public void render() {
-        spriteBatch.setProjectionMatrix(GalaxyRenderer.camera.combined);
         for (PlanetModel planet : planetModels.values()) {
             stateTime += Gdx.graphics.getDeltaTime();
             currentFrame = walkAnimation.getKeyFrame(stateTime, true);
@@ -74,7 +69,7 @@ public class PlanetRenderer implements IView {
             spriteBatch.draw(currentFrame, planet.getX() - tileWidth / 2, planet.getY() - tileHeight / 2);
             //установим цвет шрифта - cyan
             font.setColor(Color.CYAN);
-            font.getData().setScale(3);
+            font.getData().setScale(2);
             glyphLayout.setText(font, planet.getOwner());
             font.draw(spriteBatch, glyphLayout, planet.getX(), planet.getY()+tileHeight);
             if (!planet.getOwnerId().isEmpty()) { //TODO: Фу.... тут нет места этому коду.

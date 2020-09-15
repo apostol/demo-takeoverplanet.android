@@ -4,10 +4,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.List;
 
-import ru.dpankratov.projects.takeoverplanet.Graphics.IView;
+import ru.dpankratov.projects.takeoverplanet.BaseRenderer;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.DisasterModel;
 
-public class DisasterRenderer implements IView {
+public class DisasterRenderer extends BaseRenderer implements IView {
 
     private final SpriteBatch spriteBatch;
     private List<DisasterModel> disasterModels;
@@ -29,7 +29,7 @@ public class DisasterRenderer implements IView {
 
     @Override
     public void render() {
-
+        super.render();
     }
 
     @Override

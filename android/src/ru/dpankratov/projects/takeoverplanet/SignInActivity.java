@@ -60,7 +60,6 @@ public class SignInActivity extends BaseActivity implements AdapterView.OnItemCl
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // запишем в лог значения requestCode и resultCode
         super.onActivityResult(requestCode, resultCode, data);
         // если пришло ОК
         if (resultCode == RESULT_OK) {
@@ -68,8 +67,6 @@ public class SignInActivity extends BaseActivity implements AdapterView.OnItemCl
             finish();
         }
     }
-
-
 
     public static class MyArrayAdapter extends ArrayAdapter<Class> {
 
@@ -86,15 +83,12 @@ public class SignInActivity extends BaseActivity implements AdapterView.OnItemCl
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = convertView;
-
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(android.R.layout.simple_list_item_2, null);
             }
-
             ((TextView) view.findViewById(android.R.id.text1)).setText(mClasses[position].getSimpleName());
             ((TextView) view.findViewById(android.R.id.text2)).setText(mDescriptionIds[position]);
-
             return view;
         }
 

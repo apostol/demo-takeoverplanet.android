@@ -4,17 +4,15 @@ import androidx.core.util.Consumer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules;
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyModel;
-import ru.dpankratov.projects.takeoverplanet.Graphics.GameScreen;
+import ru.dpankratov.projects.takeoverplanet.Graphics.Screens.GameScreen;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Models.PlanetModel;
 
-import static ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyRenderer.camera;
-
-public class LocalClient extends GestureDetector.GestureAdapter implements InputProcessor, IClient {
+public class LocalClient extends Stage implements InputProcessor, IClient {
 
     private PlanetModel fromPlanet;
     private PlanetModel toPlanet;
@@ -28,24 +26,9 @@ public class LocalClient extends GestureDetector.GestureAdapter implements Input
     }
 
     @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         //переводим экранные координаты в координаты относительно камеры и мира
-        pressDown = camera.unproject(new Vector3(screenX, screenY, 0));
+        pressDown = getCamera().unproject(new Vector3(screenX, screenY, 0));
         Gdx.app.log("Touch Down coordinates: ", pressDown.toString());
         fromPlanet = findNearestPlanetByPoint(pressDown);
         pressDown = fromPlanet != null ? new Vector3(fromPlanet.getPosition()) : pressDown;
@@ -56,7 +39,7 @@ public class LocalClient extends GestureDetector.GestureAdapter implements Input
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         //переводим экранные координаты в координаты относительно камеры и мира
-        pressUp = camera.unproject(new Vector3(screenX, screenY, 0));
+        pressUp = getCamera().unproject(new Vector3(screenX, screenY, 0));
         Gdx.app.log("From planet position:", pressDown.toString());
         Gdx.app.log("To position:", pressUp.toString());
         toPlanet = findNearestPlanetByPoint(pressUp);
@@ -73,27 +56,6 @@ public class LocalClient extends GestureDetector.GestureAdapter implements Input
         return false;
     }
 
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
-
-    @Override
-    public boolean zoom (float originalDistance, float currentDistance) {
-        return false;
-    }
-
-    @Override
-    public boolean tap(float x, float y, int count, int button) {
-        Gdx.app.log("Zoom: ", String.valueOf(camera.zoom) );
-        camera.zoom*=2;
-        return super.tap(x, y, count, button);
-    }
 
     private Consumer<GalaxyModel> handler; //TODO: перспектива
 
@@ -114,7 +76,7 @@ public class LocalClient extends GestureDetector.GestureAdapter implements Input
 
     @Override
     public void run() {
-        while (GameScreen.isStarted) {
+        while (!GalaxyLogicRules.isGameOver()) {
             try {
                 Thread.sleep(500);
                 //handler.accept(galaxy); TODO: Перспектива
