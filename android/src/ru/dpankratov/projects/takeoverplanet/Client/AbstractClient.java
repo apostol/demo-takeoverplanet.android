@@ -13,7 +13,6 @@ public abstract class AbstractClient implements IClient {
 
     protected AbstractClient(GalaxyModel galaxy) {
         this.galaxy = galaxy;
-        isStarted = true;
     }
 
     public GalaxyModel getGalaxy() {
@@ -26,20 +25,9 @@ public abstract class AbstractClient implements IClient {
     } //TODO: Перспектива
 
     @Override
-    public void SendDrones(int fromPlanetId, int toPlanetId) {
-        GameScreen.controller.getDroneController().send(fromPlanetId, toPlanetId);
-    }
-
-    @Override
-    public void run() {
-        while (!GalaxyLogicRules.isGameOver() && isStarted) {
-            try {
-                Thread.sleep(500);
-                //handler.accept(galaxy); //TODO: Перспектива
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+    public void SendDrones(int fromPlanetId, int toPlanetId, int count) {
+        if(GameScreen.controller!=null) {
+            GameScreen.controller.getDroneController().send(fromPlanetId, toPlanetId, count);
         }
     }
 }

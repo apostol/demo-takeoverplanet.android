@@ -19,7 +19,7 @@ public class LocalBotLogic {
             //Укрепляем свои планеты
             for (PlanetModel n : myPlanets) {
                 if (p.id != n.id) {
-                    actions.add(new ClientAction(p.id, n.id));
+                    actions.add(new ClientAction(p.id, n.id, p.getDroidsToSend()));
                 }
             }
         }
@@ -27,7 +27,7 @@ public class LocalBotLogic {
         List<PlanetModel> enemies = galaxy.getPlanetModels().values().stream().filter(l -> l.getOwnerId().isEmpty() || !l.ownerId.equalsIgnoreCase(ownerId)).collect(Collectors.toList());
         if (enemies.size()>0) {
             PlanetModel e = (PlanetModel) enemies.get(RANDOM.nextInt(enemies.size()));
-            actions.add(new ClientAction(p.id, e.id));
+            actions.add(new ClientAction(p.id, e.id, p.getDroidsToSend()));
         }
         return actions;
     }

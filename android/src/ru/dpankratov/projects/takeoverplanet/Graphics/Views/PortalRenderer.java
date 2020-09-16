@@ -44,4 +44,9 @@ public class PortalRenderer extends BaseRenderer implements IView {
     public void dispose() {
 
     }
+
+    @Override
+    public void Stop() {
+
+    }
 }

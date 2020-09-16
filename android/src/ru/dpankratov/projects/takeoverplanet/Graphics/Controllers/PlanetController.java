@@ -32,4 +32,14 @@ public class PlanetController implements IController {
         }
     }
 
+    @Override
+    public void Start() {
+
+    }
+
+    @Override
+    public void Stop() {
+        planetModels.clear();
+    }
+
 }

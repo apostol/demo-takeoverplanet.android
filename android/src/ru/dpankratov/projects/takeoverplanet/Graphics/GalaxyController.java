@@ -34,6 +34,22 @@ public class GalaxyController implements IController {
         portalController.update(deltaTime);
     }
 
+    @Override
+    public void Start() {
+        disasterController.Start();
+        droneController.Start();
+        planetController.Start();
+        portalController.Start();
+    }
+
+    @Override
+    public void Stop() {
+        disasterController.Stop();
+        droneController.Stop();
+        planetController.Stop();
+        portalController.Stop();
+    }
+
     public PlanetController getPlanetController() {
         return planetController;
     }
@@ -50,4 +66,6 @@ public class GalaxyController implements IController {
     public DroneController getDroneController() {
         return droneController;
     }
+
+
 }

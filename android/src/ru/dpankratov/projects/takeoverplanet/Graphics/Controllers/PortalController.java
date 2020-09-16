@@ -15,4 +15,14 @@ public class PortalController implements IController {
     public void update(float deltaTime) {
 
     }
+
+    @Override
+    public void Start() {
+
+    }
+
+    @Override
+    public void Stop() {
+        portalModels.clear();
+    }
 }

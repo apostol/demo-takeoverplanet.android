@@ -25,6 +25,14 @@ public class DroneModel implements IModel {
         position.add(velocity.cpy().scl(deltaTime));
     }
 
+    @Override
+    public void Stop() {
+
+    }
+
+    public int getDroneRadius(){
+        return Math.min(getSize(), 50);
+    }
     public float getX(){
         return position.x;
     }

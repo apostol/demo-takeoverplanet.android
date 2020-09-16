@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -33,7 +31,7 @@ public class GameOverScreen implements Screen {
             // table to organize all the labels
             Table table = new Table();
             table.setFillParent(true);
-            table.add(new Label("Game Over", labelStyle)).expandX();
+            table.add(new Label("Game over!" /*GalaxyLogicRules.getGameOverResult()*/, labelStyle)).expandX();
             table.row();
             if (GalaxyLogicRules.getScore()>0) {
                 table.add(new Label(String.format(Locale.US, "Score: %d", GalaxyLogicRules.getScore()), labelStyle)).expandX();
@@ -66,6 +64,11 @@ public class GameOverScreen implements Screen {
             stage.act(Gdx.graphics.getDeltaTime());
             stage.draw();
             spriteBatch.end();
+        }
+
+        @Override
+        public void Stop() {
+
         }
     }
 

@@ -31,4 +31,9 @@ public class DisasterModel implements IModel {
     public void update(float deltaTime) {
 
     }
+
+    @Override
+    public void Stop() {
+
+    }
 }

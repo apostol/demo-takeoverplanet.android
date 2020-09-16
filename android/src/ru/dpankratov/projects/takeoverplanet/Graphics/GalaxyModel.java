@@ -45,4 +45,12 @@ public class GalaxyModel implements IModel {
             portalModel.update(delta);
         }
     }
+
+    @Override
+    public void Stop() {
+        planetModels.clear();
+        droneModels.clear();
+        disasterModels.clear();
+        portalModels.clear();
+    }
 }

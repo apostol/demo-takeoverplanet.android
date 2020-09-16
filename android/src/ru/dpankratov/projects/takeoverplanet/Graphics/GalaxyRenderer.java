@@ -2,7 +2,6 @@ package ru.dpankratov.projects.takeoverplanet.Graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import ru.dpankratov.projects.takeoverplanet.BaseRenderer;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Helpers.AssetLoader;
@@ -16,14 +15,12 @@ public class GalaxyRenderer extends BaseRenderer {
     private final DisasterRenderer disasterRenderer;
     private final PortalRenderer portalRenderer;
     private final DroneRenderer droneRenderer;
-    private final SpriteBatch spriteBatch;
 
     public GalaxyRenderer(GalaxyModel galaxyModel){
         planetRenderer = new PlanetRenderer(galaxyModel.getPlanetModels());
         disasterRenderer = new DisasterRenderer(galaxyModel.getDisasterModels());
         portalRenderer = new PortalRenderer(galaxyModel.getPortalModels());
         droneRenderer = new DroneRenderer(galaxyModel.getDroneModels());
-        spriteBatch = new SpriteBatch();
     }
 
     @Override
@@ -43,6 +40,13 @@ public class GalaxyRenderer extends BaseRenderer {
     @Override
     public void dispose() {
         super.dispose();
-        spriteBatch.dispose();
+    }
+
+    @Override
+    public void Stop() {
+        planetRenderer.Stop();
+        disasterRenderer.Stop();
+        portalRenderer.Stop();
+        droneRenderer.Stop();
     }
 }

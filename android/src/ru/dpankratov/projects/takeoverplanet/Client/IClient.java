@@ -7,5 +7,7 @@ import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyModel;
 public interface IClient extends Runnable {
     GalaxyModel getGalaxy();
     void OnGalaxyUpdate(Consumer<GalaxyModel> handler);
-    void SendDrones(int fromPlanetId, int toPlanetId);
+    void SendDrones(int fromPlanetId, int toPlanetId, int count);
+    void Start();
+    void Stop();
 }

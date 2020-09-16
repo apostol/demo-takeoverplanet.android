@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
+import ru.dpankratov.projects.takeoverplanet.Client.LocalBot;
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Screens.GameOverScreen;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Screens.GameScreen;
@@ -46,7 +47,7 @@ public class TakeOverPlanet extends Game {
 			Gdx.app.log("Finish", GalaxyLogicRules.getGameOverResult());
 			setScreen(getGameOverScreen());
 			if (gameScreen != null) {
-				gameScreen.dispose();
+				gameScreen.Stop();
 				gameScreen = null;
 			}
 
@@ -57,6 +58,7 @@ public class TakeOverPlanet extends Game {
 	private GameScreen getGameScreen(){
 		if (gameScreen == null){
 			gameScreen = new GameScreen();
+			gameScreen.Start();
 		}
 		return gameScreen;
 	}

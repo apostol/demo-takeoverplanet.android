@@ -20,5 +20,10 @@ public class PortalModel implements IModel {
 
     }
 
+    @Override
+    public void Stop() {
+
+    }
+
 }
 

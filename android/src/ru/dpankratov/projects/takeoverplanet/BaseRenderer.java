@@ -1,19 +1,21 @@
 package ru.dpankratov.projects.takeoverplanet;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
-import ru.dpankratov.projects.takeoverplanet.Graphics.Helpers.AssetLoader;
 import ru.dpankratov.projects.takeoverplanet.Graphics.Views.IView;
 
-public class BaseRenderer implements IView {
+public abstract class BaseRenderer implements IView {
 
-    private static final int CAMERA_WIDTH = 320; //Gdx.graphics.getWidth();
-    private static final int CAMERA_HEIGHT = 480; //Gdx.graphics.getHeight();
-    private static final OrthographicCamera camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
+    private static final int CAMERA_WIDTH = 320;
+    private static final int CAMERA_HEIGHT = 480;
+    private static final Viewport viewPort = new ScalingViewport(Scaling.stretch, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera());
     protected final SpriteBatch spriteBatch = new SpriteBatch();
     protected final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private int width;
@@ -21,9 +23,10 @@ public class BaseRenderer implements IView {
     private float ppuX;
     private float ppuY;
 
-    public static OrthographicCamera getCamera(){
-        return camera;
+    public static Camera getCamera(){
+        return viewPort.getCamera();
     }
+    public static Viewport getViewPort() {return viewPort; }
 
     @Override
     public void create() {
@@ -40,16 +43,13 @@ public class BaseRenderer implements IView {
         this.height = height;
         this.ppuX = (float)width / CAMERA_WIDTH;
         this.ppuY = (float)height / CAMERA_HEIGHT;
-        //this.width *= (float) camera.viewportWidth / (float) width;
-        //this.height *= (float) camera.viewportHeight / (float) height;
-        camera.setToOrtho(false, this.width, this.height);
-        camera.update();
+        viewPort.update (this.width, this.height, true);
     }
 
     @Override
     public void render() {
-        spriteBatch.setProjectionMatrix(camera.combined);
-        shapeRenderer.setProjectionMatrix(camera.combined);
+        //spriteBatch.setProjectionMatrix(getCamera().combined);
+        //shapeRenderer.setProjectionMatrix(getCamera().combined);
     }
 
     @Override
@@ -67,4 +67,5 @@ public class BaseRenderer implements IView {
         shapeRenderer.dispose();
         spriteBatch.dispose();
     }
+
 }

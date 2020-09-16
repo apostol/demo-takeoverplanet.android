@@ -2,7 +2,9 @@ package ru.dpankratov.projects.takeoverplanet.Graphics.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.input.GestureDetector;
 
+import ru.dpankratov.projects.takeoverplanet.Client.LocalBot;
 import ru.dpankratov.projects.takeoverplanet.Client.LocalClient;
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyController;
 import ru.dpankratov.projects.takeoverplanet.Graphics.GalaxyLogicRules;
@@ -31,7 +33,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(input);
+        Gdx.input.setInputProcessor(new GestureDetector(input));
     }
 
     @Override
@@ -42,6 +44,18 @@ public class GameScreen implements Screen {
             controller.update(delta);
             view.render();
         }
+    }
+
+    public void Start(){
+        LocalBot.poolBots.forEach(LocalBot::Start);
+    }
+
+    public void Stop(){
+        LocalBot.poolBots.forEach(LocalBot::Stop);
+        LocalBot.poolBots.clear();
+        model.Stop();
+        controller.Stop();
+        view.Stop();
     }
 
     @Override

@@ -26,14 +26,18 @@ public class PlanetModel implements IModel {
         return droids;
     }
 
-    public float getMaxDroids(){
+    public int getMaxDroids(){
         switch (type){
-            case TYPE_A: return 100f;
-            case TYPE_B: return 200f;
-            case TYPE_C: return 300f;
-            case TYPE_D: return 400f;
+            case TYPE_A: return 100;
+            case TYPE_B: return 200;
+            case TYPE_C: return 300;
+            case TYPE_D: return 400;
         }
-        return 100f;
+        return 100;
+    }
+
+    public int getPlanetRadius(){
+        return getMaxDroids()/3;
     }
 
     public String getOwner() {
@@ -78,12 +82,51 @@ public class PlanetModel implements IModel {
         return position;
     }
 
+    private boolean countDroids = false;
+    private double countDroindsByMilli = 0.09; //360/4000;
+    private float countMiili = 0;
     @Override
     public void update(float deltaTime) {
+        if (countDroids) {
+            countMiili += deltaTime*1000;
+            Gdx.app.log("time: ", String.valueOf(countMiili));
+        }
+    }
+
+    @Override
+    public void Stop() {
+
     }
 
     public void setDrones(int count) {
         this.droids = count;
-        Gdx.app.log("Planet ",  id + " drones: " + count);
+    }
+
+    public float getCountDronesPercent(){
+        return (float) (countMiili * countDroindsByMilli);
+    }
+    public int getDroidsToSend() {
+        int count;
+        if (countMiili > 0) {
+            count = (int) (getCountDronesPercent() * getDroids()/100);
+        } else {
+            count = getDroids()/2;
+        }
+        countMiili = 0;
+        return count;
+    }
+
+    public void resetCountDroids(){
+        countDroids = false;
+        countMiili = 0;
+    }
+
+    public void stopCountDroids(){
+        countDroids = false;
+    }
+
+    public void startCountDroids() {
+        countDroids = true;
+        countMiili = 0;
     }
 }
