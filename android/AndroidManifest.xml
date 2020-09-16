@@ -24,20 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
-            android:name=".GameLauncher"
-            android:theme="@style/GdxTheme" />
-        <activity
             android:name=".SignInActivity"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Auth.GoogleAuthActivity"
-            android:label="@string/label_google_sign_in" />
         <activity
             android:name=".Auth.PhoneAuthActivity"
             android:label="@string/label_phone_auth"
             android:windowSoftInputMode="adjustPan" />
-
     </application>
 
 </manifest>

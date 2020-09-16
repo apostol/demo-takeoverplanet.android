@@ -40,16 +40,9 @@ android {
     dependencies {
         // Material Design
         implementation 'com.google.android.material:material:1.2.1'
-        //implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-        //implementation 'androidx.annotation:annotation:1.1.0'
-        //implementation 'androidx.cardview:cardview:1.0.0'
-        //implementation 'androidx.recyclerview:recyclerview:1.1.0'
-
-        // Google Sign In SDK (only required for Google Sign In)
-        implementation 'com.google.android.gms:play-services-auth:18.1.0'
 
         //Activity View Binding
-        implementation 'androidx.databinding:viewbinding:4.2.0-alpha09'
+        implementation 'androidx.databinding:viewbinding:4.2.0-alpha10'
 
     }
 }
